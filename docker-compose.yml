@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+    jenkins:
+        build:
+            context: ./jenkins
+            args:
+                JENKINS_PORT: 4242
+        environment:
+            GIT_REPOSITORY_URL_PROD_FRONT: https://github.com/Nuage-Malin/eip-frontend
+        #   GIT_REPOSITORY_URL_PROD_BACK:
+        network_mode: "host"
+        # ports:
+        #     - "4242:4242"
+        env_file:
+            - .env
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        secrets:
+            - ssh_private_key
+        # depends_on:
+        #     - registry
+        # restart: always
+
+        # registry:
+        #     image: registry:2
+        #     expose:
+        #         - 5000
+        #     volumes:
+        #         - "registry:/var/lib/registry"
+        #     restart: always
+
+volumes:
+    registry: null
+
+secrets:
+    ssh_private_key:
+        file: ~/.ssh/id_rsa

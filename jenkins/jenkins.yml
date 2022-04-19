@@ -1,0 +1,45 @@
+jenkins:
+  systemMessage: "Nuage Malin"
+
+  securityRealm:
+    local:
+      allowsSignup: false
+
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: Admin
+            permissions:
+              - "Overall/Administer"
+          - name: Manager
+            description: "Can build a job"
+            permissions:
+              - "Job/Build"
+          - name: Developer
+            description: "Can read jobs and cancel a run"
+            permissions:
+              - "Job/Read"
+          - name: Visitor
+            description: "Read-only on jobs"
+            permissions:
+              - "Job/Read"
+
+jobs:
+  - file: ${JENKINS_HOME}/job_dsl/jenkins.groovy
+
+security:
+  GlobalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+# credentials:
+#   system:
+#     domainCredentials:
+#       - credentials:
+#           - certificate:
+#               scope: SYSTEM
+#               id: repository_credential
+#               password: "${CREDENTIAL_PASSPHRASE}"
+#               description: "SSH private key to clone GIT repository"
+#             keyStoreSource:
+#               fileOnMaster:
+#                 keyStoreFile: ${ssh-private-key}
