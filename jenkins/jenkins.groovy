@@ -5,7 +5,7 @@ job("Production/Front") {
     scm {
         git {
             remote {
-                github("$GIT_REPOSITORY_URL_PROD_FRONT", 'ssh')
+                github("$GIT_REPOSITORY_URL_FRONT", 'ssh')
                 credentials('eip_front_production')
                 branch("main")
             }
