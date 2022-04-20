@@ -14,9 +14,10 @@ def addUsers(users, destYml):
     if ("users" not in destYml['jenkins']['securityRealm']['local']):
         destYml['jenkins']['securityRealm']['local']['users'] = []
     for user in users:
+        usernameWords = user['name'].split(" ")
         destYml['jenkins']['securityRealm']['local']['users'].append({
             'id': user['name'],
-            'password': "${{JENKINS_USER_{}_PASSWORD}}".format(user['name'][0].upper() + user['name'].split(" ")[1].upper())
+            'password': "${{JENKINS_USER_{}_PASSWORD}}".format((user['name'][0].upper() + usernameWords[1].upper()) if len(usernameWords) > 1 else user['name'].upper())
         })
 
 def addUsersRoles(users, destYml):
