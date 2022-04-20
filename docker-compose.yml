@@ -11,7 +11,8 @@ services:
         env_file:
             - .env
         volumes:
-            - "/var/run/docker.sock:/var/run/docker.sock"
+            - /var/run/docker.sock:/var/run/docker.sock
+            - jenkins:/var/jenkins_home
         secrets:
             - nm_eip_front_ssh_key
         # depends_on:
@@ -23,10 +24,11 @@ services:
         #     expose:
         #         - 5000
         #     volumes:
-        #         - "registry:/var/lib/registry"
+        #         - registry:/var/lib/registry
         #     restart: always
 
 volumes:
+    jenkins: null
     registry: null
 
 secrets:
