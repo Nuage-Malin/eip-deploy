@@ -1,5 +1,5 @@
 jenkins:
-  systemMessage: "Nuage Malin"
+  systemMessage: Nuage Malin
 
   securityRealm:
     local:
@@ -11,19 +11,25 @@ jenkins:
         global:
           - name: Admin
             permissions:
-              - "Overall/Administer"
+              - Overall/Administer
           - name: Manager
-            description: "Can build a job"
+            description: Can read, build and cancel jobs
             permissions:
-              - "Job/Build"
+              - Overall/Read
+              - Job/Read
+              - Job/Build
+              - Job/Cancel
           - name: Developer
-            description: "Can read jobs and cancel a run"
+            description: Can read and cancel jobs
             permissions:
-              - "Job/Read"
+              - Overall/Read
+              - Job/Read
+              - Job/Cancel
           - name: Visitor
-            description: "Read-only on jobs"
+            description: Read-only on jobs
             permissions:
-              - "Job/Read"
+              - Overall/Read
+              - Job/Read
 
 jobs:
   - file: ${JENKINS_HOME}/job_dsl/jenkins.groovy
