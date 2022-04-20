@@ -6,12 +6,8 @@ services:
             context: ./jenkins
             args:
                 JENKINS_PORT: 4242
-        environment:
-            GIT_REPOSITORY_URL_PROD_FRONT: https://github.com/Nuage-Malin/eip-frontend
-        #   GIT_REPOSITORY_URL_PROD_BACK:
-        network_mode: "host"
-        # ports:
-        #     - "4242:4242"
+        ports:
+            - "4242:4242"
         env_file:
             - .env
         volumes:
