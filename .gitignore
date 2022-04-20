@@ -1,2 +1,4 @@
 .env
 jenkins/users.yml
+secrets/*
+!secrets/.gitkeep

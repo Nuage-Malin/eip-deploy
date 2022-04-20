@@ -36,16 +36,17 @@ jobs:
 
 security:
   GlobalJobDslSecurityConfiguration:
-    useScriptSecurity: false
-# credentials:
-#   system:
-#     domainCredentials:
-#       - credentials:
-#           - certificate:
-#               scope: SYSTEM
-#               id: repository_credential
-#               password: "${CREDENTIAL_PASSPHRASE}"
-#               description: "SSH private key to clone GIT repository"
-#             keyStoreSource:
-#               fileOnMaster:
-#                 keyStoreFile: ${ssh-private-key}
+    useScriptSecurity: true
+
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - basicSSHUserPrivateKey:
+              scope: GLOBAL
+              id: eip_front_production
+              passphrase:
+              description: SSH deploy key to clone front repository
+              privateKeySource:
+                directEntry:
+                  privateKey: ${readFile:/run/secrets/nm_eip_front_ssh_key}

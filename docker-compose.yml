@@ -13,7 +13,7 @@ services:
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock"
         secrets:
-            - ssh_private_key
+            - nm_eip_front_ssh_key
         # depends_on:
         #     - registry
         # restart: always
@@ -30,5 +30,5 @@ volumes:
     registry: null
 
 secrets:
-    ssh_private_key:
-        file: ~/.ssh/id_rsa
+    nm_eip_front_ssh_key:
+        file: ./secrets/nm_eip_front_ssh_key
