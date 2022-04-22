@@ -17,6 +17,6 @@ job("Production/Front") {
         }
     }
     steps {
-        shell('echo "Hello world !"')
+        shell('/app/builders/front.sh')
     }
 }
