@@ -53,6 +53,7 @@ ENV CASC_JENKINS_CONFIG ${JENKINS_HOME}/jenkins.yaml
 RUN /usr/local/bin/install-plugins.sh configuration-as-code github job-dsl script-security structs role-strategy parameterized-trigger
 
 # END
+COPY builders/ app/builders/
 COPY jenkins.yml ${JENKINS_HOME}/jenkins.yaml
 COPY jenkins.groovy ${JENKINS_HOME}/job_dsl/jenkins.groovy
 COPY settings.py /app/settings.py
