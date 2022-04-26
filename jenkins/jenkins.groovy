@@ -1,7 +1,26 @@
+job("Kubernetes cluster") {
+    keepDependencies(true)
+    triggers {
+        hudsonStartupTrigger {
+            nodeParameterName("")
+            label("")
+            quietPeriod("0")
+            runOnChoice("False")
+        }
+    }
+    steps {
+        shell('kind create cluster --name nuage-malin --config=/app/kubernetes/cluster.yml')
+    }
+}
+
 folder("Production") {
     description("Production builds");
 }
 job("Production/Front") {
+    blockOn("Kubernetes cluster") {
+        blockLevel('GLOBAL')
+        scanQueueFor('ALL')
+    }
     scm {
         git {
             remote {
