@@ -10,16 +10,18 @@ check_exit_failure()
 }
 
 # Build docker images
-docker build -t localhost:5000/eip-backend:latest .
+docker build -t localhost:5000/eip-backend:${GIT_COMMIT} -t localhost:5000/eip-backend:latest .
 check_exit_failure "Fail to build"
 
 # Push docker images in the docker registry
-docker push localhost:5000/eip-backend:latest .
-check_exit_failure "Fail to push"
+docker push localhost:5000/eip-backend:${GIT_COMMIT}
+check_exit_failure "Fail to push git commit tag"
+docker push localhost:5000/eip-backend:latest
+check_exit_failure "Fail to push latest tag"
 
 # Pull docker images in the cluster
-kind load docker-image --name eip-backend "localhost:5000/eip-backend:latest"
-check_exit_failure "Fail to pull docker image in the cluster"
+# kind load docker-image --name eip-backend "localhost:5000/eip-backend:latest"
+# check_exit_failure "Fail to pull docker image in the cluster"
 
 # Deploy kubernetes
 ## Apply client
