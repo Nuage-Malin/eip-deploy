@@ -14,23 +14,26 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
             - jenkins:/var/jenkins_home
         secrets:
-            - nm_eip_front_ssh_key
-        # depends_on:
-        #     - registry
-        # restart: always
+            - nm_eip_front_ssh
+            - nm_eip_back_ssh
+        depends_on:
+            - registry
+        restart: always
 
-        # registry:
-        #     image: registry:2
-        #     expose:
-        #         - 5000
-        #     volumes:
-        #         - registry:/var/lib/registry
-        #     restart: always
+    registry:
+        image: registry:2
+        expose:
+            - 5000
+        volumes:
+            - registry:/var/lib/registry
+        restart: always
 
 volumes:
     jenkins: null
     registry: null
 
 secrets:
-    nm_eip_front_ssh_key:
-        file: ./secrets/nm_eip_front_ssh_key
+    nm_eip_front_ssh:
+        file: ./secrets/nm_eip_front_ssh
+    nm_eip_back_ssh:
+        file: ./secrets/nm_eip_back_ssh

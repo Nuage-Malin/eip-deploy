@@ -39,3 +39,26 @@ job("Production/Front") {
         shell('/app/builders/front.sh')
     }
 }
+job("Production/Back") {
+    blockOn("Kubernetes cluster") {
+        blockLevel('GLOBAL')
+        scanQueueFor('ALL')
+    }
+    scm {
+        git {
+            remote {
+                github("$GIT_REPOSITORY_URL_BACK", 'ssh')
+                credentials('eip_back_production')
+                branch("main")
+            }
+        }
+    }
+    triggers {
+        pollSCM {
+            scmpoll_spec('* * * * *')
+        }
+    }
+    steps {
+        shell('/app/builders/back.sh')
+    }
+}
