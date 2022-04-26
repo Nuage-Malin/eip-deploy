@@ -1,5 +1,5 @@
-import yaml
 import sys
+import yaml
 
 def getYml(filepath):
     with open(filepath, "r") as file:
@@ -17,7 +17,7 @@ def addUsers(users, destYml):
         usernameWords = user['name'].split(" ")
         destYml['jenkins']['securityRealm']['local']['users'].append({
             'id': user['name'],
-            'password': "${{JENKINS_USER_{}_PASSWORD}}".format((user['name'][0].upper() + usernameWords[1].upper()) if len(usernameWords) > 1 else user['name'].upper())
+            'password': user['password']
         })
 
 def addUsersRoles(users, destYml):

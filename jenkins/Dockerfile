@@ -59,6 +59,7 @@ COPY jenkins.groovy ${JENKINS_HOME}/job_dsl/jenkins.groovy
 COPY settings.py /app/settings.py
 COPY users.yml /app/users.yml
 RUN python3 /app/settings.py /app/users.yml ${JENKINS_HOME}/jenkins.yaml
+RUN rm /app/users.yml
 COPY kubernetes/ /app/kubernetes/
 RUN chown -R jenkins:jenkins ${JENKINS_HOME}
 USER jenkins
