@@ -53,13 +53,13 @@ ENV CASC_JENKINS_CONFIG ${JENKINS_HOME}/jenkins.yaml
 RUN /usr/local/bin/install-plugins.sh configuration-as-code github job-dsl startup-trigger-plugin build-blocker-plugin script-security structs role-strategy
 
 # END
-COPY builders/ app/builders/
 COPY jenkins.yml ${JENKINS_HOME}/jenkins.yaml
 COPY jenkins.groovy ${JENKINS_HOME}/job_dsl/jenkins.groovy
-COPY settings.py /app/settings.py
+COPY builders/ app/builders/
 COPY users.yml /app/users.yml
+COPY settings.py /app/settings.py
 RUN python3 /app/settings.py /app/users.yml ${JENKINS_HOME}/jenkins.yaml
 RUN rm /app/users.yml
 COPY kubernetes/ /app/kubernetes/
-RUN chown -R jenkins:jenkins ${JENKINS_HOME}
-USER jenkins
+
+CMD kind create cluster --name nuage-malin --config=/app/kubernetes/cluster.yml && /usr/local/bin/jenkins.sh
