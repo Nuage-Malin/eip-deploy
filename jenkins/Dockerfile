@@ -55,7 +55,7 @@ RUN /usr/local/bin/install-plugins.sh configuration-as-code github job-dsl scrip
 # END
 COPY jenkins.yml ${JENKINS_HOME}/jenkins.yaml
 COPY jenkins.groovy ${JENKINS_HOME}/job_dsl/jenkins.groovy
-COPY builders/ app/builders/
+COPY builders/ /app/builders/
 COPY users.yml /app/users.yml
 COPY settings.py /app/settings.py
 RUN python3 /app/settings.py /app/users.yml ${JENKINS_HOME}/jenkins.yaml
