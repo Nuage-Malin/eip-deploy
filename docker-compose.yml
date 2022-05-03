@@ -16,14 +16,12 @@ services:
         secrets:
             - nm_eip_front_ssh
             - nm_eip_back_ssh
-        depends_on:
-            - registry
         restart: always
 
     registry:
         image: registry:2
-        expose:
-            - 5000
+        ports:
+            - "127.0.0.1:5001:5000"
         volumes:
             - registry:/var/lib/registry
         restart: always

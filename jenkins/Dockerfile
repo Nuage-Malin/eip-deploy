@@ -62,4 +62,4 @@ RUN python3 /app/settings.py /app/users.yml ${JENKINS_HOME}/jenkins.yaml
 RUN rm /app/users.yml
 COPY kubernetes/ /app/kubernetes/
 
-CMD kind create cluster --name nuage-malin --config=/app/kubernetes/cluster.yml && /usr/local/bin/jenkins.sh
+CMD /app/kubernetes/setup.sh && /usr/local/bin/jenkins.sh
