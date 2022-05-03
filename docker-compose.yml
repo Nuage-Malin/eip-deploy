@@ -16,7 +16,6 @@ services:
         secrets:
             - nm_eip_front_ssh
             - nm_eip_back_ssh
-        restart: always
 
     registry:
         image: registry:2
