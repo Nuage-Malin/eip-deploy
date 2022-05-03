@@ -10,6 +10,8 @@ services:
             - "4242:4242"
         env_file:
             - .env
+        networks:
+            - kubernetes
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - jenkins:/var/jenkins_home
@@ -19,11 +21,18 @@ services:
 
     registry:
         image: registry:2
+        container_name: eip-deploy_registry
         ports:
-            - "127.0.0.1:5001:5000"
+            - "127.0.0.1:5000:5000"
+        networks:
+            - registry
         volumes:
             - registry:/var/lib/registry
         restart: always
+
+networks:
+    kubernetes: null
+    registry: null
 
 volumes:
     jenkins: null

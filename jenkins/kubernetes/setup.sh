@@ -12,9 +12,12 @@ check_exit_failure()
 kind create cluster --name nuage-malin --config=/app/kubernetes/cluster.yml
 check_exit_failure "Fail to create cluster"
 
-docker network connect kind `docker ps --format "table {{.Names}}" | grep eip-deploy_jenkins`
-check_exit_failure "Fail to connect kind network"
-echo "Kind network connected to Jenkins"
+docker network connect eip-deploy_kubernetes nuage-malin-control-plane
+check_exit_failure "Fail to connect kubernetes network to the cluster"
+echo "Kubernetes network connected to the cluster"
+docker network connect eip-deploy_registry nuage-malin-control-plane
+check_exit_failure "Fail to connect registry network to the cluster"
+echo "Registry network connected to the cluster"
 
 kubectl config set clusters.kind-nuage-malin.server https://nuage-malin-control-plane:6443
 check_exit_failure "Fail to set cluster server URL"
