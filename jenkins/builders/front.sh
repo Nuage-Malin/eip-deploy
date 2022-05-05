@@ -20,7 +20,6 @@ docker push localhost:5000/eip-frontend:latest
 check_exit_failure "Fail to push latest tag"
 
 # Deploy kubernetes
-## Apply client
-# sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" production/client/kubernetes/client.deployment.yml
+sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" kubernetes/*deployment*.y*ml
 kubectl apply -f kubernetes/
 check_exit_failure "Fail to apply"
