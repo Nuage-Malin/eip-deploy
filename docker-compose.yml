@@ -14,7 +14,6 @@ services:
             - kubernetes
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - jenkins:/var/jenkins_home
         secrets:
             - nm_eip_front_ssh
             - nm_eip_back_ssh
@@ -35,7 +34,6 @@ networks:
     registry: null
 
 volumes:
-    jenkins: null
     registry: null
 
 secrets:
