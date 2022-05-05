@@ -19,6 +19,12 @@ check_exit_failure "Fail to push git commit tag"
 docker push localhost:5000/eip-frontend:latest
 check_exit_failure "Fail to push latest tag"
 
+docker image rm localhost:5000/eip-frontend:${GIT_COMMIT} localhost:5000/eip-frontend:latest
+if [ $? -ne 0 ]
+then
+    echo "Fail to delete docker images" 1>&2
+fi
+
 # Deploy kubernetes
 sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" kubernetes/*deployment*.y*ml
 kubectl apply -f kubernetes/
