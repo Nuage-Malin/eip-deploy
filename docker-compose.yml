@@ -6,12 +6,9 @@ services:
             context: ./jenkins
             args:
                 JENKINS_PORT: 4242
-        ports:
-            - "4242:4242"
+        network_mode: host
         env_file:
             - .env
-        networks:
-            - kubernetes
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
         secrets:
@@ -22,16 +19,10 @@ services:
         image: registry:2
         container_name: eip-deploy_registry
         ports:
-            - "127.0.0.1:5000:5000"
-        networks:
-            - registry
+            - "5000:5000"
         volumes:
             - registry:/var/lib/registry
         restart: always
-
-networks:
-    kubernetes: null
-    registry: null
 
 volumes:
     registry: null

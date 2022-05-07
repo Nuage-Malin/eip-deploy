@@ -25,6 +25,10 @@ then
     echo "Fail to delete docker images" 1>&2
 fi
 
+# Pull docker image in the cluster
+kind load docker-image --name nuage-malin "localhost:5000/eip-frontend:latest"
+check_exit_failure "Fail to pull docker image in the cluster"
+
 # Deploy kubernetes
 sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" kubernetes/*deployment*.y*ml
 kubectl apply -f kubernetes/
