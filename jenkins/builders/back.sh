@@ -10,16 +10,14 @@ check_exit_failure()
 }
 
 # Build docker images
-docker build -t localhost:5000/eip-backend:${GIT_COMMIT} -t localhost:5000/eip-backend:latest .
+docker build -t localhost:5000/eip-backend:latest .
 check_exit_failure "Fail to build"
 
 # Push docker images in the docker registry
-docker push localhost:5000/eip-backend:${GIT_COMMIT}
-check_exit_failure "Fail to push git commit tag"
 docker push localhost:5000/eip-backend:latest
 check_exit_failure "Fail to push latest tag"
 
-docker image rm localhost:5000/eip-backend:${GIT_COMMIT} localhost:5000/eip-backend:latest
+docker image rm localhost:5000/eip-backend:latest
 if [ $? -ne 0 ]
 then
     echo "Fail to delete docker images" 1>&2
