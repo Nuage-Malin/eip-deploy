@@ -22,12 +22,7 @@ RUN echo \
 RUN apt-get update
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io
 
-# Install docker-compose
-RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-RUN chmod +x /usr/local/bin/docker-compose
-RUN ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-
-# Install kubernetes
+# Install Kubernetes
 ## Install kubectl
 RUN apt-get install -y apt-transport-https
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
@@ -39,12 +34,12 @@ RUN curl -Lo ./kind "https://kind.sigs.k8s.io/dl/v0.12.0/kind-$(uname)-amd64"
 RUN chmod +x ./kind
 RUN mv ./kind /usr/local/bin/kind
 
-#Install pip
+# Install pip
 RUN apt-get install -y python3-pip
 # Install python YAML module
 RUN pip install pyyaml
 
-# Setup jenkins
+# Setup Jenkins requirements
 ENV JENKINS_HOME /home
 ENV JENKINS_OPTS --httpPort=$JENKINS_PORT
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
@@ -52,14 +47,20 @@ ENV CASC_JENKINS_CONFIG ${JENKINS_HOME}/jenkins.yaml
 
 RUN /usr/local/bin/install-plugins.sh configuration-as-code github job-dsl script-security structs role-strategy
 
-# END
+# Setup Jenkins config
 COPY jenkins.yml ${JENKINS_HOME}/jenkins.yaml
 COPY jenkins.groovy ${JENKINS_HOME}/job_dsl/jenkins.groovy
-COPY builders/ /app/builders/
 COPY users.yml /app/users.yml
 COPY settings.py /app/settings.py
 RUN python3 /app/settings.py /app/users.yml ${JENKINS_HOME}/jenkins.yaml
 RUN rm /app/users.yml
+
+# Uninstall python YAML module
+RUN pip uninstall -y pyyaml
+# Uninstall pip
+RUN apt-get purge -y python3-pip
+
+# Copy files
 COPY kubernetes/ /app/kubernetes/
 
 CMD /app/kubernetes/setup.sh && /usr/local/bin/jenkins.sh

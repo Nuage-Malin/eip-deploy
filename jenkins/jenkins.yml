@@ -4,11 +4,21 @@ jenkins:
   securityRealm:
     local:
       allowsSignup: false
+      users:
+        - id: Jenkins Agent
+          password: cc9c494ca8afcc43a0db7e8aa65662f6
 
   authorizationStrategy:
     roleBased:
       roles:
         global:
+          - name: Agent
+            description: Only destinated to Jenkins Agents
+            permissions:
+              - Overall/Read
+              - Agent/Connect
+            assignments:
+              - Jenkins Agent
           - name: Admin
             permissions:
               - Overall/Administer
@@ -30,6 +40,23 @@ jenkins:
             permissions:
               - Overall/Read
               - Job/Read
+
+  labelString: "master"
+  mode: EXCLUSIVE
+  numExecutors: 0
+  nodes:
+    - permanent:
+        name: "Nuage Malin Agent"
+        labelString: nuage-malin
+        nodeDescription: Agent to run Nuage Malin jobs
+        remoteFS: /home/nuage_malin
+        retentionStrategy: always
+        launcher:
+          jnlp:
+            workDirSettings:
+              disabled: true
+              failIfWorkDirIsMissing: false
+              internalDir: remoting
 
 jobs:
   - file: ${JENKINS_HOME}/job_dsl/jenkins.groovy

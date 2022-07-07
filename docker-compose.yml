@@ -1,22 +1,40 @@
 version: '3.9'
 
 services:
-    jenkins:
+    jenkins-controller:
         build:
             context: ./jenkins
             args:
                 JENKINS_PORT: 4242
+        container_name: eip-deploy_jenkins-controller
         ports:
             - "4242:4242"
         env_file:
             - .env
         networks:
-            - kubernetes
+            - jenkins
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+            - kubernetes-config:/root/.kube
         secrets:
             - nm_eip_front_ssh
             - nm_eip_back_ssh
+        restart: always
+
+    jenkins-agent:
+        build:
+            context: ./jenkins/agent
+            args:
+                JENKINS_PORT: 4242
+        depends_on:
+            - jenkins-controller
+        networks:
+            - jenkins
+            - kubernetes
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - kubernetes-config:/root/.kube:ro
+        restart: always
 
     registry:
         image: registry:2
@@ -30,10 +48,12 @@ services:
         restart: always
 
 networks:
+    jenkins: null
     kubernetes: null
     registry: null
 
 volumes:
+    kubernetes-config: null
     registry: null
 
 secrets:
