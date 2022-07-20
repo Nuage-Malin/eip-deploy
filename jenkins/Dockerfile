@@ -59,6 +59,8 @@ RUN rm /app/users.yml
 RUN pip uninstall -y pyyaml
 # Uninstall pip
 RUN apt-get purge -y python3-pip
+# Clear packages
+RUN apt-get autoremove -y
 
 # Copy files
 COPY kubernetes/ /app/kubernetes/
