@@ -45,7 +45,7 @@ ENV JENKINS_OPTS --httpPort=$JENKINS_PORT
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 ENV CASC_JENKINS_CONFIG ${JENKINS_HOME}/jenkins.yaml
 
-RUN /usr/local/bin/install-plugins.sh configuration-as-code github job-dsl script-security structs role-strategy
+RUN jenkins-plugin-cli --verbose --plugins configuration-as-code github job-dsl script-security structs role-strategy
 
 # Setup Jenkins config
 COPY jenkins.yml ${JENKINS_HOME}/jenkins.yaml
