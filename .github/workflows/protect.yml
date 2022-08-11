@@ -3,8 +3,7 @@ name: Protect branches
 on:
   push:
     branches:
-      - main
-      # - sprint-2/protect-branches
+      - sprint-2/protect-branches
 
 jobs:
   protect:
