@@ -19,6 +19,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: SHA
+        run: echo $GITHUB_SHA
+
       # Run
       - name: Revert commit
         run: git revert --no-commit $GITHUB_SHA
