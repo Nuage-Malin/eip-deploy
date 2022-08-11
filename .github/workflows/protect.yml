@@ -1,0 +1,18 @@
+name: Protect branches
+
+on:
+  push:
+    branches:
+      - sprint-2/protect-branches
+
+jobs:
+  protect:
+    runs-on: ubuntu-22.04
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Run
+      - name: Display env
+        run: env
