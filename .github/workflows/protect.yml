@@ -9,10 +9,22 @@ jobs:
   protect:
     runs-on: ubuntu-22.04
     steps:
+      # Setup
+      - name: Setup Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "bot@noreply.github.com"
+
       # Checkout code
       - name: Checkout code
         uses: actions/checkout@v2
 
       # Run
-      - name: Display env
-        run: env
+      - name: Revert commit
+        run: git revert --no-commit $GITHUB_SHA
+
+      - name: Commit message
+        run: git commit -m "[GitHub Action] Protect branch"
+
+      - name: Push reverted commit
+        run: git push
