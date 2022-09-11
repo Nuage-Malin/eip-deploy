@@ -17,9 +17,7 @@ jobs:
           git config --global user.email "noreply@github.com"
 
       - name: DEBUG
-        run: |
-          echo ${{ github.event.pusher.name }}
-          echo ${{ github.event.pusher.email }}
+        run: echo ${{ toJson(github) }}
 
       # Checkout code
       - name: Checkout code
