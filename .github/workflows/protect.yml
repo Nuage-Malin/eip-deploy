@@ -8,6 +8,7 @@ on:
 jobs:
   protect:
     runs-on: ubuntu-22.04
+    if: ${{ github.event.pusher.name != 'GitHub' && github.event.pusher.email != 'noreply@github.com' }}
     steps:
       # Setup
       - name: Setup Git
