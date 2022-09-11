@@ -61,3 +61,8 @@ RUN pip uninstall -y pyyaml
 RUN apt-get purge -y python3-pip
 # Clear packages
 RUN apt-get autoremove -y
+
+# Copy files
+COPY kubernetes/ /app/kubernetes/
+
+CMD /app/kubernetes/setup.sh && /usr/local/bin/jenkins.sh
