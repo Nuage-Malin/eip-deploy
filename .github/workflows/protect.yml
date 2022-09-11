@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: SHA
+      - name: SHA & Status
         run: |
           echo $GITHUB_SHA
           git status
@@ -27,6 +27,9 @@ jobs:
       # Run
       - name: Revert commit
         run: git revert --no-commit $GITHUB_SHA
+
+      - name: Status
+        run: git status
 
       - name: Commit message
         run: git commit -m "[GitHub Action] Protect branch"
