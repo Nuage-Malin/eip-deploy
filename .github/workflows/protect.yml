@@ -21,17 +21,9 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: SHA & Status
-        run: |
-          echo $GITHUB_SHA
-          git status
-
       # Run
       - name: Revert commit
         run: git revert --no-commit $GITHUB_SHA
-
-      - name: Status
-        run: git status
 
       - name: Commit message
         run: git commit -m "[GitHub Action] Protect branch"
