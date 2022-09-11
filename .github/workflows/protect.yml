@@ -8,7 +8,7 @@ on:
 jobs:
   protect:
     runs-on: ubuntu-22.04
-    if: ${{ github.event.head_commit.name != 'GitHub' && github.event.head_commit.email != 'noreply@github.com' }}
+    if: ${{ github.event.head_commit.commiter.name != 'GitHub' && github.event.head_commit.commiter.email != 'noreply@github.com' }}
     steps:
       # Setup
       - name: Setup Git
@@ -17,7 +17,7 @@ jobs:
           git config --global user.email "noreply@github.com"
 
       - name: DEBUG
-        run: echo "${{ toJson(github.event) }}"
+        run: echo "${{ toJson(github.event.head_commit) }}"
 
       # Checkout code
       - name: Checkout code
