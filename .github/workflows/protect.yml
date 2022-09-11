@@ -19,14 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       # Run
-      - name: Revert commit
-        run: git revert --no-commit $GITHUB_SHA
+      - name: Reset commits
+        run: git reset --hard ${{ github.event.before }}
 
-      - name: Commit message
-        run: git commit -m "[GitHub Action] Protect branch"
-
-      - name: Push reverted commit
-        run: git push
+      - name: Force update HEAD
+        run: git push --force
