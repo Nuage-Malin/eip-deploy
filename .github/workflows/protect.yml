@@ -27,4 +27,4 @@ jobs:
         run: git reset --hard ${{ github.event.before }}
 
       - name: Force update HEAD
-        run: git push --force
+        run: ! git push --force
