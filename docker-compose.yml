@@ -6,7 +6,7 @@ services:
             context: ./jenkins
             args:
                 JENKINS_PORT: 4242
-        container_name: eip-deploy_jenkins-controller
+        container_name: eip-deploy-jenkins-controller
         ports:
             - "4242:4242"
         env_file:
@@ -38,7 +38,7 @@ services:
 
     registry:
         image: registry:2
-        container_name: eip-deploy_registry
+        container_name: eip-deploy-registry
         ports:
             - "127.0.0.1:5000:5000"
         networks:
