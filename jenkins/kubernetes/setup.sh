@@ -10,7 +10,7 @@ check_exit_failure()
 }
 
 # Create Kubernetes cluster
-kind create cluster --name nuage-malin --config=/app/kubernetes/cluster.yml
+kind create cluster --name nuage-malin --config=/app/kubernetes/cluster.yml -v 1
 check_exit_failure "Fail to create cluster"
 
 # Connect docker networks
