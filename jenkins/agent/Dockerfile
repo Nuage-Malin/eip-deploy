@@ -26,6 +26,8 @@ RUN mv ./kind /usr/local/bin/kind
 
 # Install Git
 RUN apk add git openssh
+RUN mkdir -p ~/.ssh
+RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # END
 COPY setup.sh /app/setup.sh
