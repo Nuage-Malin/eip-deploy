@@ -39,6 +39,10 @@ RUN apt-get install -y python3-pip
 # Install python YAML module
 RUN pip install pyyaml
 
+# Setup ssh
+RUN mkdir -p ~/.ssh
+RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
+
 # Setup Jenkins requirements
 ENV JENKINS_HOME /home
 ENV JENKINS_OPTS --httpPort=$JENKINS_PORT
