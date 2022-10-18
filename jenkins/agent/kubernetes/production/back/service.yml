@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: eip-server-production
+
+spec:
+  selector:
+    app: eip-backend
+    runEnv: production
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 30808

@@ -11,11 +11,11 @@ ENV JENKINS_PORT $JENKINS_PORT
 RUN apk update && apk upgrade
 
 # Install docker
-RUN apk add docker
+RUN apk add --no-cache docker
 
 # Install kubernetes
 ## Install kubectl
-RUN apk add curl
+RUN apk add --no-cache curl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN chmod +x ./kubectl
 RUN mv ./kubectl /usr/local/bin/kubectl
@@ -25,12 +25,13 @@ RUN chmod +x ./kind
 RUN mv ./kind /usr/local/bin/kind
 
 # Install Git
-RUN apk add git openssh
+RUN apk add --no-cache git openssh
 RUN mkdir -p ~/.ssh
 RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # END
 COPY setup.sh /app/setup.sh
 COPY builders/ /app/builders/
+COPY kubernetes/ /app/kubernetes/
 
 CMD /app/setup.sh

@@ -71,7 +71,7 @@ credentials:
       - credentials:
           - basicSSHUserPrivateKey:
               scope: GLOBAL
-              id: eip_front_production
+              id: eip_front
               passphrase: nm_eip_front_ssh
               description: SSH deploy key to clone production front repository
               privateKeySource:
@@ -79,7 +79,7 @@ credentials:
                   privateKey: ${readFile:/run/secrets/nm_eip_front_ssh}
           - basicSSHUserPrivateKey:
               scope: GLOBAL
-              id: eip_back_production
+              id: eip_back
               passphrase: nm_eip_back_ssh
               description: SSH deploy key to clone production back repository
               privateKeySource:

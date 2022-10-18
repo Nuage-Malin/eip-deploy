@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: eip-back-development
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: eip-backend
+      runEnv: development
+  template:
+    metadata:
+      labels:
+        app: eip-backend
+        runEnv: development
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: eip-backend-development
+          image: localhost:5000/eip-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: FOR_GODS_SAKE_PLEASE_REDEPLOY
+              value: THIS_STRING_IS_REPLACED_DURING_BUILD
+            - name: PORT
+              value: "8080"
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 8080
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 5
+          #   successThreshold: 1
+          #   failureThreshold: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 8080
+          #   initialDelaySeconds: 3
+          #   periodSeconds: 15
+          #   successThreshold: 1
+          #   failureThreshold: 3
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%

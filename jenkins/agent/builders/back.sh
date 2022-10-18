@@ -18,6 +18,9 @@ docker push localhost:5000/eip-backend:latest
 check_exit_failure "Fail to push latest tag"
 
 # Deploy kubernetes
-sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" kubernetes/*deployment*.y*ml
-kubectl apply -f kubernetes/
+rm -rf /tmp/kubernetes
+mkdir /tmp/kubernetes
+cp /app/kubernetes/$1/back/* /tmp/kubernetes
+sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" /tmp/kubernetes/*deployment*.y*ml
+kubectl apply -f /tmp/kubernetes/
 check_exit_failure "Fail to apply"
