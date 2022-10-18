@@ -15,11 +15,14 @@ check_exit_failure "Fail to create cluster"
 
 # Connect docker networks
 docker network connect eip-deploy_kubernetes nuage-malin-control-plane
-check_exit_failure "Fail to connect kubernetes network to the cluster"
-echo "Kubernetes network connected to the cluster"
-docker network connect eip-deploy_registry nuage-malin-control-plane
-check_exit_failure "Fail to connect registry network to the cluster"
-echo "Registry network connected to the cluster"
+check_exit_failure "Fail to connect kubernetes network to the master node"
+echo "Kubernetes network connected to the master node"
+docker network connect eip-deploy_registry nuage-malin-worker
+check_exit_failure "Fail to connect registry network to the production worker node"
+echo "Registry network connected to the production worker node"
+docker network connect eip-deploy_registry nuage-malin-worker2
+check_exit_failure "Fail to connect registry network to the development worker node"
+echo "Registry network connected to the worker node"
 
 # Set Kubernetes config
 kubectl config set clusters.kind-nuage-malin.server https://nuage-malin-control-plane:6443

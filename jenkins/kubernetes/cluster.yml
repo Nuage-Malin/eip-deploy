@@ -8,6 +8,10 @@ containerdConfigPatches:
 
 nodes:
   - role: control-plane
+
+  - role: worker
+    labels:
+      runEnv: production
     extraPortMappings:
       # CLIENT
       - containerPort: 30008
@@ -15,3 +19,14 @@ nodes:
       # SERVER
       - containerPort: 30808
         hostPort: 8080
+
+  - role: worker
+    labels:
+      runEnv: development
+    extraPortMappings:
+      # CLIENT
+      - containerPort: 31008
+        hostPort: 81
+      # SERVER
+      - containerPort: 31808
+        hostPort: 8081

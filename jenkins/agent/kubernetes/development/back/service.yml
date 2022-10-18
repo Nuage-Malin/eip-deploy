@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: eip-back-development
+
+spec:
+  selector:
+    app: eip-backend
+    runEnv: development
+  type: NodePort
+  ports:
+    - port: 8080
+      nodePort: 31808
