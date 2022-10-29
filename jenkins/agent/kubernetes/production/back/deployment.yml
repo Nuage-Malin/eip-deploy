@@ -16,6 +16,8 @@ spec:
         app: eip-backend
         runEnv: production
     spec:
+      nodeSelector:
+        runEnv: production
       restartPolicy: Always
       containers:
         - name: eip-backend-production
