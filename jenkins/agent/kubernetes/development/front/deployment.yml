@@ -16,6 +16,8 @@ spec:
         app: eip-frontend
         runEnv: development
     spec:
+      nodeSelector:
+        runEnv: development
       restartPolicy: Always
       containers:
         - name: eip-frontend-development
