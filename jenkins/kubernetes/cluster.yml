@@ -25,8 +25,8 @@ nodes:
       runEnv: development
     extraPortMappings:
       # CLIENT
-      - containerPort: 31008
+      - containerPort: 30008
         hostPort: 81
       # SERVER
-      - containerPort: 31808
+      - containerPort: 30808
         hostPort: 8081

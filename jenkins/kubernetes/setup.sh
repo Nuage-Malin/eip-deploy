@@ -27,3 +27,9 @@ echo "Registry network connected to the worker node"
 # Set Kubernetes config
 kubectl config set clusters.kind-nuage-malin.server https://nuage-malin-control-plane:6443
 check_exit_failure "Fail to set cluster server URL"
+
+# Startup default resources
+## Production
+kubectl apply -f /app/kubernetes/production/users-db/
+## Development
+kubectl apply -f /app/kubernetes/development/users-db/

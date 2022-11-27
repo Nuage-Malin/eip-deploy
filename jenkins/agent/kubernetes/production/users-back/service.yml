@@ -2,11 +2,11 @@ kind: Service
 apiVersion: v1
 
 metadata:
-  name: eip-server-production
+  name: users-back-production
 
 spec:
   selector:
-    app: eip-backend
+    app: users-back
     runEnv: production
   type: NodePort
   ports:

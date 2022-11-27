@@ -17,14 +17,14 @@ job("Production/Front") {
         }
     }
     steps {
-        shell('/app/builders/front.sh production')
+        shell('/app/builders/front.sh production_front')
     }
 }
-job("Production/Back") {
+job("Production/Users Back") {
     scm {
         git {
             remote {
-                github("$GIT_REPOSITORY_URL_BACK", 'ssh')
+                github("$GIT_REPOSITORY_URL_USERS_BACK", 'ssh')
                 credentials('eip_back')
                 branch("main")
             }
@@ -36,7 +36,7 @@ job("Production/Back") {
         }
     }
     steps {
-        shell('/app/builders/back.sh production')
+        shell('/app/builders/users-back.sh production_users_back')
     }
 }
 
@@ -59,15 +59,15 @@ job("Development/Front") {
         }
     }
     steps {
-        shell('/app/builders/front.sh development')
+        shell('/app/builders/front.sh development_front')
     }
 }
-job("Development/Back") {
+job("Development/Users Back") {
     scm {
         git {
             remote {
-                github("$GIT_REPOSITORY_URL_BACK", 'ssh')
-                credentials('eip_back')
+                github("$GIT_REPOSITORY_URL_USERS_BACK", 'ssh')
+                credentials('users_back')
                 branch("develop")
             }
         }
@@ -78,6 +78,6 @@ job("Development/Back") {
         }
     }
     steps {
-        shell('/app/builders/back.sh development')
+        shell('/app/builders/users-back.sh development_users_back')
     }
 }

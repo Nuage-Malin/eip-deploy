@@ -2,26 +2,26 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: eip-back-development
+  name: users-back-development
 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: eip-backend
+      app: users-back
       runEnv: development
   template:
     metadata:
       labels:
-        app: eip-backend
+        app: users-back
         runEnv: development
     spec:
       nodeSelector:
         runEnv: development
       restartPolicy: Always
       containers:
-        - name: eip-backend-development
-          image: localhost:5000/eip-backend:latest
+        - name: users-back-development
+          image: localhost:5000/users-back:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
