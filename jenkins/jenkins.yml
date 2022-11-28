@@ -80,8 +80,16 @@ credentials:
           - basicSSHUserPrivateKey:
               scope: GLOBAL
               id: users_back
-              passphrase: nm_eip_back_ssh
+              passphrase: nm_users_back_ssh
               description: SSH deploy key to clone users-back repository
               privateKeySource:
                 directEntry:
                   privateKey: ${readFile:/run/secrets/nm_users_back_ssh}
+          - basicSSHUserPrivateKey:
+              scope: GLOBAL
+              id: maestro
+              passphrase: nm_maestro_ssh
+              description: SSH deploy key to clone maestro repository
+              privateKeySource:
+                directEntry:
+                  privateKey: ${readFile:/run/secrets/nm_maestro_ssh}

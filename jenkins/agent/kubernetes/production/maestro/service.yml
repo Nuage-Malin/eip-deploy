@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: users-back-production
+
+spec:
+  selector:
+    app: users-back
+    maestro: "true"
+    runEnv: production
+  type: ClusterIP
+  ports:
+    - port: 8090

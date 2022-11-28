@@ -2,25 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: users-db-development
+  name: users-db-production
 
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: users-db
-      runEnv: development
+      runEnv: production
   template:
     metadata:
       labels:
         app: users-db
-        runEnv: development
+        runEnv: production
     spec:
       nodeSelector:
-        runEnv: development
+        runEnv: production
       restartPolicy: Always
       containers:
-        - name: users-db-development
+        - name: users-db-production
           image: mongo:6
           ports:
             - containerPort: 27017
@@ -30,12 +30,12 @@ spec:
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: mongo_root_password_1234
             - name: MONGO_INITDB_DATABASE
-              value: eipdb
+              value: users-db
           startupProbe:
             httpGet:
               path: /
               port: 27017
-            initialDelaySeconds: 6
+            initialDelaySeconds: 15
             periodSeconds: 2
           readinessProbe:
             httpGet:

@@ -2,48 +2,47 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: users-back-development
+  name: maestro-development
 
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: users-back
+      app: maestro
       runEnv: development
   template:
     metadata:
       labels:
-        app: users-back
-        runEnv: development
+        app: maestro
         users-db: mongo-db
-        maestro: "true"
+        runEnv: development
     spec:
       nodeSelector:
         runEnv: development
       restartPolicy: Always
       containers:
-        - name: users-back-development
-          image: localhost:5000/users-back:latest
+        - name: maestro-development
+          image: localhost:5000/maestro:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - containerPort: 8090
           env:
             - name: FOR_GODS_SAKE_PLEASE_REDEPLOY
               value: THIS_STRING_IS_REPLACED_DURING_BUILD
-            - name: PORT
-              value: "8080"
-            - name: MONGODB_URI
-              value: mongodb://root:mongo_root_password_1234@users-db:27017
+            - name: MAESTRO_PORT
+              value: "8090"
+            - name: MAESTRO_MONGO_URL
+              value: mongodb://nuage_malin:mongo_nuage_malin_dowMaXYgnA@localhost:27017/maestro?authSource=admin
           # startupProbe:
           #   httpGet:
           #     path: /
-          #     port: 8080
+          #     port: 8090
           #   initialDelaySeconds: 2
           #   periodSeconds: 4
           # readinessProbe:
           #   httpGet:
           #     path: /
-          #     port: 8080
+          #     port: 8090
           #   initialDelaySeconds: 1
           #   periodSeconds: 5
           #   successThreshold: 1
@@ -51,7 +50,7 @@ spec:
           # livenessProbe:
           #   httpGet:
           #     path: /
-          #     port: 8080
+          #     port: 8090
           #   initialDelaySeconds: 3
           #   periodSeconds: 15
           #   successThreshold: 1

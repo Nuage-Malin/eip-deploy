@@ -17,7 +17,7 @@ job("Production/Front") {
         }
     }
     steps {
-        shell('/app/builders/front.sh production_front')
+        shell('/app/builders/front.sh production')
     }
 }
 job("Production/Users Back") {
@@ -25,7 +25,7 @@ job("Production/Users Back") {
         git {
             remote {
                 github("$GIT_REPOSITORY_URL_USERS_BACK", 'ssh')
-                credentials('eip_back')
+                credentials('users_back')
                 branch("main")
             }
         }
@@ -36,7 +36,26 @@ job("Production/Users Back") {
         }
     }
     steps {
-        shell('/app/builders/users-back.sh production_users_back')
+        shell('/app/builders/users-back.sh production')
+    }
+}
+job("Production/Maestro") {
+    scm {
+        git {
+            remote {
+                github("$GIT_REPOSITORY_URL_MAESTRO", 'ssh')
+                credentials('maestro')
+                branch("main")
+            }
+        }
+    }
+    triggers {
+        pollSCM {
+            scmpoll_spec('* * * * *')
+        }
+    }
+    steps {
+        shell('/app/builders/maestro.sh production')
     }
 }
 
@@ -59,7 +78,7 @@ job("Development/Front") {
         }
     }
     steps {
-        shell('/app/builders/front.sh development_front')
+        shell('/app/builders/front.sh development')
     }
 }
 job("Development/Users Back") {
@@ -78,6 +97,25 @@ job("Development/Users Back") {
         }
     }
     steps {
-        shell('/app/builders/users-back.sh development_users_back')
+        shell('/app/builders/users-back.sh development')
+    }
+}
+job("Development/Maestro") {
+    scm {
+        git {
+            remote {
+                github("$GIT_REPOSITORY_URL_MAESTRO", 'ssh')
+                credentials('maestro')
+                branch("develop")
+            }
+        }
+    }
+    triggers {
+        pollSCM {
+            scmpoll_spec('* * * * *')
+        }
+    }
+    steps {
+        shell('/app/builders/maestro.sh development')
     }
 }

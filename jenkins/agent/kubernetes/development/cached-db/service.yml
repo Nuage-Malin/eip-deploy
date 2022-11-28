@@ -2,12 +2,13 @@ kind: Service
 apiVersion: v1
 
 metadata:
-  name: users-db-production
+  name: cached-db-development
 
 spec:
   selector:
-    app: users-db
-    runEnv: production
+    app: cached-db
+    cached-db: mongo-db
+    runEnv: development
   type: ClusterIP
   ports:
     - port: 27017
