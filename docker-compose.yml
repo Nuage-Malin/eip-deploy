@@ -34,7 +34,6 @@ services:
 
 networks:
     jenkins: null
-    users-back:maestro: null
 
 secrets:
     nm_eip_front_ssh:
