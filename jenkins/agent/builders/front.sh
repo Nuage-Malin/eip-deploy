@@ -14,10 +14,6 @@ docker build -t eip-frontend:latest .
 check_exit_failure "Fail to build"
 
 # Run docker images
-if [ $1 == "production" ]
-then
-    docker run --rm -d -p $PRODUCTION_EIP_FRONT:80 --name eip-frontend eip-frontend:latest
-else
-    docker run --rm -d -p $DEVELOPMENT_EIP_FRONT:80 --name eip-frontend eip-frontend:latest
-fi
+docker stop eip-frontend
+docker run --rm -d -p 80:80 --name eip-frontend eip-frontend:latest
 check_exit_failure "Fail to run"

@@ -24,8 +24,6 @@ services:
             context: ./jenkins/agent
             args:
                 JENKINS_PORT: 4242
-        env_file:
-            - ./jenkins/agent/.env
         networks:
             - jenkins
         volumes:

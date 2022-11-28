@@ -14,12 +14,7 @@ docker compose build
 check_exit_failure "Fail to build"
 
 # Run docker images
-if [ $1 == "production" ]
-then
-    MAESTRO_PORT=$PRODUCTION_MAESTRO_PORT docker compose up -d
-else
-    MAESTRO_PORT=$DEVELOPMENT_MAESTRO_PORT docker compose up -d
-fi
+docker compose up -d
 check_exit_failure "Fail to run"
 
 # Connect to networks

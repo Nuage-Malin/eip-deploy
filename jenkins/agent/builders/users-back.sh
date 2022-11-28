@@ -14,12 +14,7 @@ docker compose build
 check_exit_failure "Fail to build"
 
 # Run docker images
-if [ $1 == "production" ]
-then
-    USERS_BACK_PORT=$PRODUCTION_USERS_BACK docker compose up -d
-else
-    USERS_BACK_PORT=$DEVELOPMENT_USERS_BACK docker compose up -d
-fi
+docker compose up -d
 check_exit_failure "Fail to run"
 
 # Connect to networks
