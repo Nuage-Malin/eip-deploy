@@ -7,54 +7,36 @@ services:
             args:
                 JENKINS_PORT: 4242
         container_name: eip-deploy-jenkins-controller
-        ports:
-            - "4242:4242"
         env_file:
             - .env
+        ports:
+            - "4242:4242"
         networks:
             - jenkins
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - kubernetes-config:/root/.kube
         secrets:
             - nm_eip_front_ssh
             - nm_users_back_ssh
             - nm_maestro_ssh
+        restart: always
 
     jenkins-agent:
         build:
             context: ./jenkins/agent
             args:
                 JENKINS_PORT: 4242
-        depends_on:
-            - jenkins-controller
+        env_file:
+            - ./jenkins/agent/.env
         networks:
             - jenkins
-            - kubernetes
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - kubernetes-config:/root/.kube:ro
-        restart: always
-
-    registry:
-        image: registry:2
-        container_name: eip-deploy-registry
-        ports:
-            - "127.0.0.1:5000:5000"
-        networks:
-            - registry
-        volumes:
-            - registry:/var/lib/registry
+        depends_on:
+            - jenkins-controller
         restart: always
 
 networks:
     jenkins: null
-    kubernetes: null
-    registry: null
-
-volumes:
-    kubernetes-config: null
-    registry: null
+    users-back:maestro: null
 
 secrets:
     nm_eip_front_ssh:

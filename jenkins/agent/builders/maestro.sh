@@ -10,18 +10,17 @@ check_exit_failure()
 }
 
 # Build docker images
-docker build -t localhost:5000/maestro:latest .
+docker compose build
 check_exit_failure "Fail to build"
 
-# Push docker images in the docker registry
-docker push localhost:5000/maestro:latest
-check_exit_failure "Fail to push latest tag"
-docker image rm localhost:5000/maestro:latest
+# Run docker images
+if [ $1 == "production" ]
+then
+    MAESTRO_PORT=$PRODUCTION_MAESTRO_PORT docker compose up -d
+else
+    MAESTRO_PORT=$DEVELOPMENT_MAESTRO_PORT docker compose up -d
+fi
+check_exit_failure "Fail to run"
 
-# Deploy kubernetes
-rm -rf /tmp/kubernetes/maestro
-mkdir -p /tmp/kubernetes/maestro
-cp /app/kubernetes/$1/maestro/* /tmp/kubernetes/maestro
-sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" /tmp/kubernetes/maestro/*deployment*.y*ml
-# kubectl apply -f /tmp/kubernetes/maestro/
-# check_exit_failure "Fail to apply"
+# Connect to networks
+docker network connect users-back:maestro maestro

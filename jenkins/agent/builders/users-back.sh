@@ -10,18 +10,17 @@ check_exit_failure()
 }
 
 # Build docker images
-docker build -t localhost:5000/users-back:latest .
+docker compose build
 check_exit_failure "Fail to build"
 
-# Push docker images in the docker registry
-docker push localhost:5000/users-back:latest
-check_exit_failure "Fail to push latest tag"
-docker image rm localhost:5000/users-back:latest
+# Run docker images
+if [ $1 == "production" ]
+then
+    USERS_BACK_PORT=$PRODUCTION_USERS_BACK docker compose up -d
+else
+    USERS_BACK_PORT=$DEVELOPMENT_USERS_BACK docker compose up -d
+fi
+check_exit_failure "Fail to run"
 
-# Deploy kubernetes
-rm -rf /tmp/kubernetes/users-back
-mkdir -p /tmp/kubernetes/users-back
-cp /app/kubernetes/$1/users-back/* /tmp/kubernetes/users-back
-sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" /tmp/kubernetes/users-back/*deployment*.y*ml
-kubectl apply -f /tmp/kubernetes/users-back/
-check_exit_failure "Fail to apply"
+# Connect to networks
+docker network connect users-back:maestro users-back
