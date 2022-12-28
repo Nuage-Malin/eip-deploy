@@ -16,3 +16,6 @@ check_exit_failure "Fail to build"
 # Run docker images
 docker compose up -d
 check_exit_failure "Fail to run"
+
+# Create networks
+docker network create users-back:maestro
