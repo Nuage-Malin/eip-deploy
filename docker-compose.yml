@@ -19,7 +19,7 @@ services:
         secrets:
             - nm_eip_front_ssh
             - nm_users_back_ssh
-        restart: always
+            - nm_maestro_ssh
 
     jenkins-agent:
         build:
@@ -61,3 +61,5 @@ secrets:
         file: ./secrets/nm_eip_front_ssh
     nm_users_back_ssh:
         file: ./secrets/nm_users_back_ssh
+    nm_maestro_ssh:
+        file: ./secrets/nm_maestro_ssh

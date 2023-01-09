@@ -39,6 +39,25 @@ job("Production/Users Back") {
         shell('/app/builders/users-back.sh production')
     }
 }
+job("Production/Maestro") {
+    scm {
+        git {
+            remote {
+                github("$GIT_REPOSITORY_URL_MAESTRO", 'ssh')
+                credentials('maestro')
+                branch("main")
+            }
+        }
+    }
+    triggers {
+        pollSCM {
+            scmpoll_spec('* * * * *')
+        }
+    }
+    steps {
+        shell('/app/builders/maestro.sh production')
+    }
+}
 
 folder("Development") {
     description("Development builds");
@@ -79,5 +98,24 @@ job("Development/Users Back") {
     }
     steps {
         shell('/app/builders/users-back.sh development')
+    }
+}
+job("Development/Maestro") {
+    scm {
+        git {
+            remote {
+                github("$GIT_REPOSITORY_URL_MAESTRO", 'ssh')
+                credentials('maestro')
+                branch("develop")
+            }
+        }
+    }
+    triggers {
+        pollSCM {
+            scmpoll_spec('* * * * *')
+        }
+    }
+    steps {
+        shell('/app/builders/maestro.sh development')
     }
 }

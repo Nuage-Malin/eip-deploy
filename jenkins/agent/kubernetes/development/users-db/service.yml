@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+
+metadata:
+  name: users-db-development
+
+spec:
+  selector:
+    app: users-db
+    runEnv: development
+  type: ClusterIP
+  ports:
+    - port: 27017
