@@ -25,7 +25,7 @@ job("Production/Users Back") {
         git {
             remote {
                 github("$GIT_REPOSITORY_URL_USERS_BACK", 'ssh')
-                credentials('eip_back')
+                credentials('users_back')
                 branch("main")
             }
         }
