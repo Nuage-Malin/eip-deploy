@@ -17,7 +17,7 @@ job("Production/Front") {
         }
     }
     steps {
-        shell('/app/builders/front.sh production_front')
+        shell('/app/builders/front.sh production')
     }
 }
 job("Production/Users Back") {
@@ -36,7 +36,7 @@ job("Production/Users Back") {
         }
     }
     steps {
-        shell('/app/builders/users-back.sh production_users_back')
+        shell('/app/builders/users-back.sh production')
     }
 }
 
@@ -59,7 +59,7 @@ job("Development/Front") {
         }
     }
     steps {
-        shell('/app/builders/front.sh development_front')
+        shell('/app/builders/front.sh development')
     }
 }
 job("Development/Users Back") {
@@ -78,6 +78,6 @@ job("Development/Users Back") {
         }
     }
     steps {
-        shell('/app/builders/users-back.sh development_users_back')
+        shell('/app/builders/users-back.sh development')
     }
 }
