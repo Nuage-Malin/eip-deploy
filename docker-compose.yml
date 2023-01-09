@@ -18,7 +18,7 @@ services:
             - kubernetes-config:/root/.kube
         secrets:
             - nm_eip_front_ssh
-            - nm_eip_back_ssh
+            - nm_users_back_ssh
         restart: always
 
     jenkins-agent:
