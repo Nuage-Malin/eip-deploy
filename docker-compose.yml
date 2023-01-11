@@ -17,6 +17,7 @@ services:
             - nm_eip_front_ssh
             - nm_users_back_ssh
             - nm_maestro_ssh
+            - nm_chouf_ssh
         restart: always
 
     jenkins-agent:
@@ -42,3 +43,5 @@ secrets:
         file: ./secrets/nm_users_back_ssh
     nm_maestro_ssh:
         file: ./secrets/nm_maestro_ssh
+    nm_chouf_ssh:
+        file: ./secrets/nm_chouf_ssh
