@@ -8,21 +8,12 @@ WORKDIR /app
 
 ENV JENKINS_PORT $JENKINS_PORT
 
-RUN apk update && apk upgrade
+RUN apk update &&   \
+    apk upgrade &&  \
+    apk add --no-cache curl
 
 # Install docker
-RUN apk add --no-cache docker
-
-# Install kubernetes
-## Install kubectl
-RUN apk add --no-cache curl
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-RUN chmod +x ./kubectl
-RUN mv ./kubectl /usr/local/bin/kubectl
-## Install kind
-RUN curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64
-RUN chmod +x ./kind
-RUN mv ./kind /usr/local/bin/kind
+RUN apk add --no-cache docker docker-cli-compose
 
 # Install Git
 RUN apk add --no-cache git openssh
@@ -32,6 +23,5 @@ RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 # END
 COPY setup.sh /app/setup.sh
 COPY builders/ /app/builders/
-COPY kubernetes/ /app/kubernetes/
 
 CMD /app/setup.sh

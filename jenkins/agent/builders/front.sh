@@ -10,18 +10,10 @@ check_exit_failure()
 }
 
 # Build docker images
-docker build -t localhost:5000/eip-frontend:latest .
+docker build -t eip-frontend:latest .
 check_exit_failure "Fail to build"
 
-# Push docker images in the docker registry
-docker push localhost:5000/eip-frontend:latest
-check_exit_failure "Fail to push latest tag"
-docker image rm localhost:5000/eip-frontend:latest
-
-# Deploy kubernetes
-rm -rf /tmp/kubernetes/front
-mkdir -p /tmp/kubernetes/front
-cp /app/kubernetes/$1/front/* /tmp/kubernetes/front
-sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(date)/g" /tmp/kubernetes/front/*deployment*.y*ml
-kubectl apply -f /tmp/kubernetes/front/
-check_exit_failure "Fail to apply"
+# Run docker images
+docker stop eip-frontend
+docker run --rm -d -p 80:80 --name eip-frontend eip-frontend:latest
+check_exit_failure "Fail to run"
