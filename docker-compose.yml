@@ -29,6 +29,8 @@ services:
             - jenkins
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+        secrets:
+            - nm_protobuf_interfaces_ssh
         depends_on:
             - jenkins-controller
         restart: always
@@ -37,6 +39,8 @@ networks:
     jenkins: null
 
 secrets:
+    nm_protobuf_interfaces_ssh:
+        file: ./secrets/nm_protobuf_interfaces_ssh
     nm_eip_front_ssh:
         file: ./secrets/nm_eip_front_ssh
     nm_users_back_ssh:
