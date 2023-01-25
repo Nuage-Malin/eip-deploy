@@ -14,6 +14,7 @@ services:
         networks:
             - jenkins
         secrets:
+            - nm_protobuf_interfaces_ssh
             - nm_eip_front_ssh
             - nm_users_back_ssh
             - nm_maestro_ssh
@@ -36,6 +37,8 @@ networks:
     jenkins: null
 
 secrets:
+    nm_protobuf_interfaces_ssh:
+        file: ./secrets/nm_protobuf_interfaces_ssh
     nm_eip_front_ssh:
         file: ./secrets/nm_eip_front_ssh
     nm_users_back_ssh:
