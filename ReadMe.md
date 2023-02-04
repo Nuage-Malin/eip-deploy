@@ -1,13 +1,17 @@
 # Requirements
 
 ## Softwares
-- **Docker :** 20.10.18
-- **Docker Compose :** v2.10.2
+- **Docker :** 20.10.23
+- **Docker Compose :** v2.15.1
 
 ## Files
 ### Environment variables
 - **File :** *./.env*
-- Add **GIT_REPOSITORY_URL_FRONT** and **GIT_REPOSITORY_URL_FRONT** variables that are the full repositories names templated as `user-or-organisation-name/repository-name`.
+    - *GIT_REPOSITORY_URL_FRONT*
+    - *GIT_REPOSITORY_URL_USERS_BACK*
+    - *GIT_REPOSITORY_URL_MAESTRO*
+    - *GIT_REPOSITORY_URL_CHOUF*
+- Those environment variables that must be added are the full repository names templated as `user-or-organisation-name/repository-name`.
 
 ### Jenkins users
 - **File :** *./jenkins/users.yml*
@@ -34,9 +38,12 @@ The available roles are :
 
 ### Secrets
 - **File :** *./secrets/*
-    - *nm_eip_back_ssh*
     - *nm_eip_front_ssh*
-- *nm_eip_back_ssh* and *nm_eip_front_ssh* files are private SSH keys linked to public keys added to GitHub [frontend](https://github.com/Nuage-Malin/eip-frontend/settings/keys) and [backend](https://github.com/Nuage-Malin/eip-backend/settings/keys) repositories as **Deploy keys**.  
+    - *nm_users_back_ssh*
+    - *nm_protobuf_interfaces_ssh*
+    - *nm_maestro_ssh*
+    - *nm_chouf_ssh*
+- *nm_\*_ssh* files are private SSH keys linked to public keys added to GitHub repositories as **Deploy keys**.  
 This keys are used by Jenkins to pull there repositories.
 
 # Startup
@@ -46,10 +53,4 @@ This keys are used by Jenkins to pull there repositories.
 docker compose up --build
 ```
 This will build and start the **Jenkins controller**, the **Jenkins Agent** and the **Docker registry**.  
-Before starting Jenkins, the controller will [start](/jenkins/kubernetes/setup.sh#L12) the **Kubernetes cluster** that can take few minutes, then it will [connect](/jenkins/kubernetes/setup.sh#L16) it to Docker networks and [configurate](/jenkins/kubernetes/setup.sh#L24) it.  
 The Jenkins Agent is the only one to run jobs. Jobs on the master node has been disabled.
-
-
-# Diagram
-
-![Diagram](./.github/images/deployment_diagram.png)
