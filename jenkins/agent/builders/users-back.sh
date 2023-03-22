@@ -19,7 +19,6 @@ check_exit_failure "Fail to run"
 
 # Create networks
 docker network create users-back:maestro
-if [ $? -ne 0 ]
-then
+if [ $? -ne 0 ]; then
     echo "users-back:maestro network already exists"
 fi
