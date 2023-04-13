@@ -10,22 +10,14 @@ check_exit_failure()
 }
 
 # Build docker images
-docker compose build
+docker compose --profile launch --env-file santaclaus.env build
 check_exit_failure "Fail to build"
 
 # Run docker images
-docker compose up -d
+docker compose --profile launch --env-file santaclaus.env up
 check_exit_failure "Fail to run"
 
 # Create networks
-docker network create users-back:maestro
-if [ $? -ne 0 ]; then
-    echo "users-back:maestro network already exists"
-fi
-docker network create chouf:maestro
-if [ $? -ne 0 ]; then
-    echo "chouf:maestro network already exists"
-fi
 docker network create maestro:santaclaus
 if [ $? -ne 0 ]; then
     echo "maestro:santaclaus network already exists"

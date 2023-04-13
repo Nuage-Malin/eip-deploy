@@ -74,3 +74,22 @@ job("Chouf") {
         shell('/app/builders/chouf.sh')
     }
 }
+job("Santaclaus") {
+    scm {
+        git {
+            remote {
+                github("$GIT_REPOSITORY_URL_SANTACLAUS", 'ssh')
+                credentials('santaclaus')
+                branch("main")
+            }
+        }
+    }
+    triggers {
+        pollSCM {
+            scmpoll_spec('* * * * *')
+        }
+    }
+    steps {
+        shell('/app/builders/santaclaus.sh')
+    }
+}

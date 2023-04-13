@@ -18,6 +18,7 @@ services:
             - nm_users_back_ssh
             - nm_maestro_ssh
             - nm_chouf_ssh
+            - nm_santaclaus_ssh
         restart: always
 
     jenkins-agent:
@@ -49,3 +50,6 @@ secrets:
         file: ./secrets/nm_maestro_ssh
     nm_chouf_ssh:
         file: ./secrets/nm_chouf_ssh
+    nm_santaclaus_ssh:
+        file: ./secrets/nm_santaclaus_ssh
+
