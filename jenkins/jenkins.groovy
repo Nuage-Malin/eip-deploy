@@ -90,6 +90,7 @@ job("Santaclaus") {
         }
     }
     steps {
+        shell('GIT_SSH_COMMAND="ssh -i /run/secrets/nm_protobuf_interfaces_ssh" git submodule update --init --recursive')
         shell('/app/builders/santaclaus.sh')
     }
 }
