@@ -14,7 +14,7 @@ docker compose --profile launch --env-file santaclaus.env build
 check_exit_failure "Fail to build"
 
 # Run docker images
-docker compose --profile launch --env-file santaclaus.env up
+docker compose --profile launch --env-file santaclaus.env up -d
 check_exit_failure "Fail to run"
 
 # Create networks
