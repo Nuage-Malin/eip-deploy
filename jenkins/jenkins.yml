@@ -101,11 +101,3 @@ credentials:
               privateKeySource:
                 directEntry:
                   privateKey: ${readFile:/run/secrets/nm_chouf_ssh}
-          - basicSSHUserPrivateKey:
-              scope: GLOBAL
-              id: landing-page
-              passphrase: nm_landing_page_ssh
-              description: SSH deploy key to clone landing-page repository
-              privateKeySource:
-                directEntry:
-                  privateKey: ${readFile:/run/secrets/nm_landing_page_ssh}

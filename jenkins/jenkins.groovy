@@ -74,22 +74,3 @@ job("Chouf") {
         shell('/app/builders/chouf.sh')
     }
 }
-job("Landing page") {
-    scm {
-        git {
-            remote {
-                github("$GIT_REPOSITORY_URL_LANDING_PAGE", 'ssh')
-                credentials('landing-page')
-                branch("main")
-            }
-        }
-    }
-    triggers {
-        pollSCM {
-            scmpoll_spec('* * * * *')
-        }
-    }
-    steps {
-        shell('/app/builders/landing-page.sh')
-    }
-}
