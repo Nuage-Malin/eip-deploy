@@ -30,3 +30,7 @@ docker network create maestro:santaclaus
 if [ $? -ne 0 ]; then
     echo "maestro:santaclaus network already exists"
 fi
+docker network create maestro:vault
+if [ $? -ne 0 ]; then
+    echo "maestro:vault network already exists"
+fi

@@ -94,3 +94,23 @@ job("Santaclaus") {
         shell('/app/builders/santaclaus.sh')
     }
 }
+job("Vault") {
+    scm {
+        git {
+            remote {
+                github("$GIT_REPOSITORY_URL_VAULT", 'ssh')
+                credentials('vault')
+                branch("main")
+            }
+        }
+    }
+    triggers {
+        pollSCM {
+            scmpoll_spec('* * * * *')
+        }
+    }
+    steps {
+        shell('GIT_SSH_COMMAND="ssh -i /run/secrets/nm_protobuf_interfaces_ssh" git submodule update --init --recursive')
+        shell('/app/builders/vault.sh')
+    }
+}
