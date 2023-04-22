@@ -113,7 +113,7 @@ credentials:
               scope: GLOBAL
               id: vault
               passphrase: nm_vault_ssh
-              description: SSH deploy key to clone santaclaus repository
+              description: SSH deploy key to clone vault repository
               privateKeySource:
                 directEntry:
                   privateKey: ${readFile:/run/secrets/nm_vault_ssh}
