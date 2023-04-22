@@ -14,7 +14,7 @@ docker compose --env-file vault.env build
 check_exit_failure "Fail to build"
 
 # Run docker images
-docker compose --env-file vault.env up
+docker compose --env-file vault.env up -d
 check_exit_failure "Fail to run"
 
 # Create networks
