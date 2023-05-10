@@ -15,6 +15,7 @@ check_exit_failure "Fail to build"
 
 # Run docker images
 docker stop chouf
+sleep 3
 docker run --rm -d -p 23234:23234 --name chouf chouf:latest
 check_exit_failure "Fail to run"
 
