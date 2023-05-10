@@ -10,11 +10,11 @@ check_exit_failure()
 }
 
 # Build docker images
-docker compose build
+docker compose --env-file=./env/maestro.env build
 check_exit_failure "Fail to build"
 
 # Run docker images
-docker compose up -d
+docker compose --env-file=./env/maestro.env up -d
 check_exit_failure "Fail to run"
 
 # Create networks
