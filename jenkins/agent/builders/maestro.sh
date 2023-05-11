@@ -14,7 +14,7 @@ docker compose --env-file=./env/maestro.env build
 check_exit_failure "Fail to build"
 
 # Run docker images
-docker compose --env-file=./env/maestro.env up -d
+docker compose --env-file=./env/maestro.env --profile launch up -d
 check_exit_failure "Fail to run"
 
 # Create networks
