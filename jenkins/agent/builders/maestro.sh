@@ -10,12 +10,8 @@ check_exit_failure()
 }
 
 # Build docker images
-docker compose --env-file=./env/maestro.env build
+docker compose --env-file=./env/maestro_build.env --profile launch build
 check_exit_failure "Fail to build"
-
-# Run docker images
-docker compose --env-file=./env/maestro.env --profile launch up -d
-check_exit_failure "Fail to run"
 
 # Create networks
 docker network create users-back:maestro
@@ -34,3 +30,7 @@ docker network create maestro:vault
 if [ $? -ne 0 ]; then
     echo "maestro:vault network already exists"
 fi
+
+# Run docker images
+docker compose --env-file=./env/maestro_build.env --profile launch up -d
+check_exit_failure "Fail to run"

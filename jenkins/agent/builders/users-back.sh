@@ -13,12 +13,12 @@ check_exit_failure()
 docker compose build
 check_exit_failure "Fail to build"
 
-# Run docker images
-docker compose up -d
-check_exit_failure "Fail to run"
-
 # Create networks
 docker network create users-back:maestro
 if [ $? -ne 0 ]; then
     echo "users-back:maestro network already exists"
 fi
+
+# Run docker images
+docker compose up -d
+check_exit_failure "Fail to run"
