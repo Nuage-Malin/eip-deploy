@@ -10,7 +10,7 @@ check_exit_failure()
 }
 
 # Build docker images
-docker compose --env-file=./env/maestro_build.env --profile launch build
+docker compose --env-file=./env/maestro.env --profile launch build
 check_exit_failure "Fail to build"
 
 # Create networks
@@ -32,5 +32,5 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run docker images
-docker compose --env-file=./env/maestro_build.env --profile launch up -d
+docker compose --env-file=./env/maestro.env --profile launch up -d
 check_exit_failure "Fail to run"
