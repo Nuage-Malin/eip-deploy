@@ -22,6 +22,9 @@ check_exit_failure "Fail to download agent"
 secret=`curl -L -s -u "Jenkins Agent:cc9c494ca8afcc43a0db7e8aa65662f6" -X GET http://eip-deploy-jenkins-controller:4242/computer/Nuage%20Malin%20Agent/jenkins-agent.jnlp | sed "s/.*<application-desc><argument>\([a-z0-9]*\).*/\1/"`
 check_exit_failure "Fail to get agent secret"
 
+# Create docker networks
+/app/docker-networks.sh
+
 # Start agent
 java -jar /app/agent.jar -jnlpUrl http://eip-deploy-jenkins-controller:$JENKINS_PORT/computer/Nuage%20Malin%20Agent/jenkins-agent.jnlp -secret $secret
 check_exit_failure "Fail to run agent"

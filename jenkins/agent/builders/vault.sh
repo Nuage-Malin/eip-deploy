@@ -13,12 +13,6 @@ check_exit_failure()
 docker compose --env-file vault.env build
 check_exit_failure "Fail to build"
 
-# Create networks
-docker network create maestro:vault
-if [ $? -ne 0 ]; then
-    echo "maestro:vault network already exists"
-fi
-
 # Run docker images
 docker compose --env-file vault.env up -d
 check_exit_failure "Fail to run"

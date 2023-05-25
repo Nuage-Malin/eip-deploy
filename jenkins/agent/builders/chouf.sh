@@ -20,9 +20,5 @@ docker run --rm -d -p 23234:23234 --name chouf chouf:latest
 check_exit_failure "Fail to run"
 
 # Create networks
-docker network create chouf:maestro
-if [ $? -ne 0 ]; then
-    echo "chouf:maestro network already exists"
-fi
 docker network connect chouf:maestro chouf
 check_exit_failure "Fail to connect chouf to chouf:maestro network"

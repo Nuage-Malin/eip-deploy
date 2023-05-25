@@ -23,5 +23,6 @@ RUN ssh-keyscan github.com >> ~/.ssh/known_hosts
 # END
 COPY setup.sh /app/setup.sh
 COPY builders/ /app/builders/
+COPY docker-networks.sh /app/docker-networks.sh
 
 CMD /app/setup.sh
