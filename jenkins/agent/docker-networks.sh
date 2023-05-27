@@ -4,6 +4,7 @@ networks=("users-back_mongo" \
           "users-back:maestro" \
           "maestro:santaclaus" \
           "maestro:vault" \
+          "maestro:bugle" \
           "santaclaus:bugle" \
           "chouf:maestro" \
           "chouf:bugle" \
