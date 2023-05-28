@@ -10,7 +10,7 @@ ENV JENKINS_PORT $JENKINS_PORT
 
 RUN apk update &&   \
     apk upgrade &&  \
-    apk add --no-cache curl
+    apk add --no-cache curl bash
 
 # Install docker
 RUN apk add --no-cache docker docker-cli-compose

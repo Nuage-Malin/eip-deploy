@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 networks=("users-back_mongo" \
           "users-back:maestro" \
